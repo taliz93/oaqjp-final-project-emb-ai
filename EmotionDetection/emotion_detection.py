@@ -7,6 +7,17 @@ def emotion_detector(text_to_analyze):
     api_inp = {'raw_document': {'text': text_to_analyze}}
     # T2: call api
     api_res = requests.post(api_url, json = api_inp, headers = api_hdr)
+    # T7: Error Handle
+    if api_res.status_code == 400:
+        out_json = {
+            'anger': 'None',
+            'disgust': 'None',
+            'fear': 'None',
+            'joy': 'None',
+            'sadness': 'None',
+            'dominant_emotion': 'None'
+        }
+        return out_json
     # T2: get raw text response
     res_txt = api_res.text
     # T3: convert to dict
